@@ -24,6 +24,7 @@ public class Calculator {
 	
 	public static double evaluate(String expression) {
 		int subStart = 0;
+		int parenthesis = 0;
 		boolean isSubExpression = false;
 		String subExpression = "";
 		
@@ -35,20 +36,27 @@ public class Calculator {
 		
 		for (int i = 0; i < expression.length(); i++) {
 			if (expression.charAt(i) == '(') {
-				isSubExpression = true;
-				subStart = i;
+				parenthesis++;
+				if (!isSubExpression) {	//if this is the start
+					isSubExpression = true;
+					subStart = i;
+					continue;
+				}
 			}
 			else if (expression.charAt(i) == ')') {
-				subExpression = Double.toString(evaluate(subExpression));
-				//expression = partBefore + evaluate(subExpression) + partAfter;
-				expression = expression.substring(0, subStart) 
-						+ subExpression 
-						+ expression.substring(i+1);
-				//reset states
-				i = subStart + subExpression.length();
-				subStart = 0;
-				isSubExpression = false;
-				subExpression = "";
+				parenthesis--;
+				if (parenthesis == 0) {	//if this is the end
+					subExpression = Double.toString(evaluate(subExpression));
+					//expression = partBefore + evaluate(subExpression) + partAfter;
+					expression = expression.substring(0, subStart) 
+							+ subExpression 
+							+ expression.substring(i+1);
+					//reset states
+					i = subStart + subExpression.length();
+					subStart = 0;
+					isSubExpression = false;
+					subExpression = "";
+				}
 			}
 			if (isSubExpression)
 				subExpression += expression.charAt(i);
@@ -64,15 +72,15 @@ public class Calculator {
 				numbers.add(number);
 				operations.add(Operation.ADDITION);
 			}
-			else if (ch == '-') {	//subtraction to be processed as addition of negative number
-				if (numbers.size() == operations.size()) {
+			else if (ch == '-') {
+				if (tempResultString.isEmpty()) {	//encountered a negative number
+					tempResultString += '-';
+				}
+				else {
 					number = Double.parseDouble(tempResultString);
 					tempResultString = "";
 					numbers.add(number);
 					operations.add(Operation.SUBTRACTION);
-				}
-				else if (operations.size() > numbers.size()) {
-					//we have a negative number
 				}
 			}
 			else if (ch == '*') {
