@@ -64,11 +64,16 @@ public class Calculator {
 				numbers.add(number);
 				operations.add(Operation.ADDITION);
 			}
-			else if (ch == '-') {
-				number = Double.parseDouble(tempResultString);
-				tempResultString = "";
-				numbers.add(number);
-				operations.add(Operation.SUBTRACTION);
+			else if (ch == '-') {	//subtraction to be processed as addition of negative number
+				if (numbers.size() == operations.size()) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.SUBTRACTION);
+				}
+				else if (operations.size() > numbers.size()) {
+					//we have a negative number
+				}
 			}
 			else if (ch == '*') {
 				number = Double.parseDouble(tempResultString);
