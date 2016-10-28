@@ -16,10 +16,11 @@ public class Calculator {
 			System.out.println("input expression:");
 			expression = scanner.nextLine();
 			
-			if (expression.equalsIgnoreCase("version"))
-				System.out.println(VERSION);
-			
-			if (expression.equalsIgnoreCase("exit"))
+			if (expression.equalsIgnoreCase("version")) {
+				System.out.printf("Version: %s%nGeneral purpose calculator. Inspired by Eddie Hatfield, implemented by Eric Liu.%n%n", VERSION);
+				continue;
+			}
+			else if (expression.equalsIgnoreCase("exit"))
 				break;
 			
 			System.out.printf("= %f%n", evaluate(expression));
