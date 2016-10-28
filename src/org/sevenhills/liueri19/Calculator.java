@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Calculator {
+	public static final String VERSION = "1.1";
+	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		String expression;
@@ -13,6 +15,9 @@ public class Calculator {
 		while (true) {
 			System.out.println("input expression:");
 			expression = scanner.nextLine();
+			
+			if (expression.equalsIgnoreCase("version"))
+				System.out.println(VERSION);
 			
 			if (expression.equalsIgnoreCase("exit"))
 				break;
