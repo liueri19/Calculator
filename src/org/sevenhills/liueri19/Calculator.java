@@ -23,7 +23,8 @@ public class Calculator {
 			else if (expression.equalsIgnoreCase("exit"))
 				break;
 			
-			System.out.printf("= %f%n", evaluate(expression));
+			//System.out.printf("= %f%n", evaluate(expression));
+			System.out.println("= " + evaluate(expression));	//prints more precision than printf()
 		}
 		scanner.close();
 	}
