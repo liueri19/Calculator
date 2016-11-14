@@ -73,6 +73,10 @@ public class Calculator {
 			char ch = expression.charAt(i);
 			if (Character.isDigit(ch) || ch == '.')
 				tempResultString += ch;
+			//parse for constants
+			else if (ch == 'e') {
+				tempResultString = Double.toString(Math.E);
+			}
 			else if (ch == '+') {
 				number = Double.parseDouble(tempResultString);
 				tempResultString = "";
