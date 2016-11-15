@@ -75,7 +75,7 @@ public class Calculator {
 				tempResultString += ch;
 			//parse for constants
 			else if (ch == 'e') {
-				tempResultString = Double.toString(Math.E);
+				tempResultString += Double.toString(Math.E);
 			}
 			else if (ch == '+') {
 				number = Double.parseDouble(tempResultString);
