@@ -109,7 +109,7 @@ public class Calculator {
 					number = Double.parseDouble(tempResultString);
 					tempResultString = "";
 					numbers.add(number);
-					
+					operations.add(Operation.MULTIPLICATION);
 				}
 			}
 			////
