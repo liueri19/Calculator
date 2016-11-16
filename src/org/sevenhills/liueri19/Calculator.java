@@ -102,6 +102,11 @@ public class Calculator {
 				}
 			}
 			////
+			//parse functions
+			else if (tempResultString == "log") {
+				
+			}
+			////
 			else if (ch == '+') {
 				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
 				number = Double.parseDouble(tempResultString);
