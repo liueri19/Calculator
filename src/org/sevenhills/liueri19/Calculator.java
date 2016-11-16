@@ -103,8 +103,14 @@ public class Calculator {
 			}
 			////
 			//parse functions
-			else if (tempResultString.indexOf("log") != -1) {
-				
+			else if (tempResultString.indexOf("log") == tempResultString.length()-3 && tempResultString.length()-3 > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-3); //delete the "log"
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					
+				}
 			}
 			////
 			else if (ch == '+') {
