@@ -1,5 +1,8 @@
 # Calculator
 A command line based calculator. Can also be used as an extension for other projects, just drag and drop the .java file.  
-Simple: get input as an expression, print the result the next line.  
-Not so when you realize that an expression cannot be processed like number->operation->next number->next operation...,
-multiplication and division should be handled before addition and subtraction. And what about exponentiation? What about parentheses?
+
+v1.0: The most basic stuff.  
+v1.1: Order of execution, powers, negative numbers.  
+  v1.1u2: Pretty much nothing changed.  
+v1.2pre1: Added constants 'e' and 'pi'.  
+v1.2-future version: Add basic trigonometry functions.  
