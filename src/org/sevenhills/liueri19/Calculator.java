@@ -76,12 +76,13 @@ public class Calculator {
 			//parse for constants
 			else if (ch == 'e') {
 				//if there is a number before e; Exp: 2e = 2 * e
-				if (!tempResultString.isEmpty()) {
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
 					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
 					numbers.add(number);
 					operations.add(Operation.MULTIPLICATION);
 				}
-				tempResultString = Double.toString(Math.E);
+				tempResultString += Double.toString(Math.E);
 			}
 			else if (ch == 'p') {
 				tempResultString += ch;
@@ -92,12 +93,13 @@ public class Calculator {
 					if (tempResultString.charAt(lastIndex) == 'p') { //if the character before 'i' is 'p'
 						//do the calculations
 						tempResultString = tempResultString.substring(0, lastIndex);
-						if (!tempResultString.isEmpty()) {
+						if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
 							number = Double.parseDouble(tempResultString);
+							tempResultString = "";
 							numbers.add(number);
 							operations.add(Operation.MULTIPLICATION);
 						}
-						tempResultString = Double.toString(Math.PI);
+						tempResultString += Double.toString(Math.PI);
 					}
 				}
 			}
