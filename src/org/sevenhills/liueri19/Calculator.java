@@ -103,7 +103,7 @@ public class Calculator {
 			}
 			////
 			//parse functions
-			else if (tempResultString == "log") {
+			else if (tempResultString.indexOf("log") != -1) {
 				
 			}
 			////
