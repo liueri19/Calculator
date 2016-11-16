@@ -71,10 +71,11 @@ public class Calculator {
 		
 		for (int i = 0; i < expression.length(); i++) {
 			char ch = expression.charAt(i);
-			if (Character.isDigit(ch) || ch == '.')
-				tempResultString += ch;
+			
+			tempResultString += ch;
 			//parse for constants
-			else if (ch == 'e') {
+			if (ch == 'e') { //constant e
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1); //delete the 'e'
 				//if there is a number before e; Exp: 2e = 2 * e
 				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
 					number = Double.parseDouble(tempResultString);
@@ -84,15 +85,12 @@ public class Calculator {
 				}
 				tempResultString += Double.toString(Math.E);
 			}
-			else if (ch == 'p') {
-				tempResultString += ch;
-			}
-			else if (ch == 'i') {
+			else if (ch == 'i') { //constant pi
 				int lastIndex = tempResultString.length()-1; //last index of the tempResultString
 				if (lastIndex >= 0) { //if there is a character before 'i'
-					if (tempResultString.charAt(lastIndex) == 'p') { //if the character before 'i' is 'p'
+					if (tempResultString.charAt(lastIndex-1) == 'p') { //if the character before 'i' is 'p'
 						//do the calculations
-						tempResultString = tempResultString.substring(0, lastIndex);
+						tempResultString = tempResultString.substring(0, lastIndex-1); //delete the "pi"
 						if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
 							number = Double.parseDouble(tempResultString);
 							tempResultString = "";
@@ -105,12 +103,14 @@ public class Calculator {
 			}
 			////
 			else if (ch == '+') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
 				number = Double.parseDouble(tempResultString);
 				tempResultString = "";
 				numbers.add(number);
 				operations.add(Operation.ADDITION);
 			}
 			else if (ch == '-') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
 				if (tempResultString.isEmpty()) {	//encountered a negative number
 					tempResultString += '-';
 				}
@@ -122,18 +122,21 @@ public class Calculator {
 				}
 			}
 			else if (ch == '*') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
 				number = Double.parseDouble(tempResultString);
 				tempResultString = "";
 				numbers.add(number);
 				operations.add(Operation.MULTIPLICATION);
 			}
 			else if (ch == '/') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
 				number = Double.parseDouble(tempResultString);
 				tempResultString = "";
 				numbers.add(number);
 				operations.add(Operation.DIVISION);
 			}
 			else if (ch == '^') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
 				number = Double.parseDouble(tempResultString);
 				tempResultString = "";
 				numbers.add(number);
@@ -190,6 +193,11 @@ public class Calculator {
 			return a * b;
 		else if (op == Operation.DIVISION)
 			return a / b;
+		//NOTE////
+		/*
+		 * If the first argument is finite and less than zero and
+		 * If the second argument is finite and not an integer, then the result is NaN.
+		 */
 		else if (op == Operation.EXPONENTIATION)
 			return Math.pow(a, b);
 		throw new IllegalArgumentException();
