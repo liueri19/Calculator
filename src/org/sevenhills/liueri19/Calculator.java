@@ -69,15 +69,39 @@ public class Calculator {
 				subExpression += expression.charAt(i);
 		}
 		
-		//e^23 give incorrect result
 		for (int i = 0; i < expression.length(); i++) {
 			char ch = expression.charAt(i);
 			if (Character.isDigit(ch) || ch == '.')
 				tempResultString += ch;
 			//parse for constants
 			else if (ch == 'e') {
-				tempResultString += Double.toString(Math.E);
+				//if there is a number before e; Exp: 2e = 2 * e
+				if (!tempResultString.isEmpty()) {
+					number = Double.parseDouble(tempResultString);
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				tempResultString = Double.toString(Math.E);
 			}
+			else if (ch == 'p') {
+				tempResultString += ch;
+			}
+			else if (ch == 'i') {
+				int lastIndex = tempResultString.length()-1; //last index of the tempResultString
+				if (lastIndex >= 0) { //if there is a character before 'i'
+					if (tempResultString.charAt(lastIndex) == 'p') { //if the character before 'i' is 'p'
+						//do the calculations
+						tempResultString = tempResultString.substring(0, lastIndex);
+						if (!tempResultString.isEmpty()) {
+							number = Double.parseDouble(tempResultString);
+							numbers.add(number);
+							operations.add(Operation.MULTIPLICATION);
+						}
+						tempResultString = Double.toString(Math.PI);
+					}
+				}
+			}
+			////
 			else if (ch == '+') {
 				number = Double.parseDouble(tempResultString);
 				tempResultString = "";
