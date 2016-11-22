@@ -5,4 +5,4 @@ v1.0: The most basic stuff.
 v1.1: Order of execution, powers, negative numbers.  
   v1.1u2: Pretty much nothing changed.  
 v1.2: Added constants 'e' and 'pi'.  
-v1.3-future version: Add basic trigonometry functions.  
+v1.2.4: Added logarithm.  
