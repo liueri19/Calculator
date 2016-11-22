@@ -22,6 +22,8 @@ public class Calculator {
 			}
 			else if (expression.equalsIgnoreCase("exit"))
 				break;
+			else if (expression.equals(""))
+				continue;
 			
 			//System.out.printf("= %f%n", evaluate(expression));
 			System.out.println("= " + evaluate(expression));	//prints more precision than printf()
