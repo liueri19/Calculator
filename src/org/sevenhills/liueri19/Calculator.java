@@ -103,7 +103,7 @@ public class Calculator {
 			}
 			////
 			//parse functions
-			else if (tempResultString.indexOf("log") == tempResultString.length()-3 && tempResultString.length()-3 > -1) {
+			else if (tempResultString.indexOf("log") > -1) {
 				tempResultString = tempResultString.substring(0, tempResultString.length()-3); //delete the "log"
 				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
 					number = Double.parseDouble(tempResultString);
@@ -111,6 +111,27 @@ public class Calculator {
 					numbers.add(number);
 					operations.add(Operation.MULTIPLICATION);
 				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.LOGARITHM10);
+			}
+			else if (tempResultString.indexOf("ln") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-2); //delete the "ln"
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.LOGARITHMN);
 			}
 			////
 			else if (ch == '+') {
@@ -159,6 +180,18 @@ public class Calculator {
 		tempResultString = "";
 		numbers.add(number);
 		
+		//process functions
+		for (int i = 0; i < operations.size(); i++) {
+			Operation op = operations.get(i);
+			double result;
+			if (op == Operation.LOGARITHM10 || op == Operation.LOGARITHMN) {
+				result = calculate(op, numbers.get(i), 0);
+				numbers.set(i, result);
+				operations.remove(i);
+				i--;
+			}
+		}
+		
 		//process exponentiation
 		for (int i = 0; i < operations.size(); i++) {
 			Operation op = operations.get(i);
@@ -204,13 +237,17 @@ public class Calculator {
 			return a * b;
 		else if (op == Operation.DIVISION)
 			return a / b;
-		//NOTE////
+		//NOTE
 		/*
 		 * If the first argument is finite and less than zero and
 		 * If the second argument is finite and not an integer, then the result is NaN.
 		 */
 		else if (op == Operation.EXPONENTIATION)
 			return Math.pow(a, b);
+		else if (op == Operation.LOGARITHMN)
+			return Math.log(a);
+		else if (op == Operation.LOGARITHM10)
+			return Math.log10(a);
 		throw new IllegalArgumentException();
 	}
 }
@@ -220,5 +257,7 @@ enum Operation {
 	SUBTRACTION,
 	MULTIPLICATION,
 	DIVISION,
-	EXPONENTIATION;
+	EXPONENTIATION,
+	LOGARITHMN, //natural log
+	LOGARITHM10 //base 10 log
 }
