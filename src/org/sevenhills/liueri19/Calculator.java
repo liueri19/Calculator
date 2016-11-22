@@ -135,6 +135,96 @@ public class Calculator {
 				}
 				operations.add(Operation.LOGARITHMN);
 			}
+			else if (tempResultString.indexOf("arcsin") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-6);
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.ARCSINE);
+			}
+			else if (tempResultString.indexOf("arccos") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-6);
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.ARCCOSINE);
+			}
+			else if (tempResultString.indexOf("arctan") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-6);
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.ARCTANGENT);
+			}
+			else if (tempResultString.indexOf("sin") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-3);
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.SINE);
+			}
+			else if (tempResultString.indexOf("cos") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-3);
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.COSINE);
+			}
+			else if (tempResultString.indexOf("tan") > -1) {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-3);
+				if (!tempResultString.isEmpty() && !tempResultString.equals("-")) {
+					number = Double.parseDouble(tempResultString);
+					tempResultString = "";
+					numbers.add(number);
+					operations.add(Operation.MULTIPLICATION);
+				}
+				else if (tempResultString.equals("-")) {
+					tempResultString = "";
+					numbers.add(-1d); //multiply by -1
+					operations.add(Operation.MULTIPLICATION);
+				}
+				operations.add(Operation.TANGENT);
+			}
 			////
 			else if (ch == '+') {
 				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
@@ -186,7 +276,9 @@ public class Calculator {
 		for (int i = 0; i < operations.size(); i++) {
 			Operation op = operations.get(i);
 			double result;
-			if (op == Operation.LOGARITHM10 || op == Operation.LOGARITHMN) {
+			if (op == Operation.LOGARITHM10 || op == Operation.LOGARITHMN
+					|| op == Operation.SINE || op == Operation.COSINE || op == Operation.TANGENT
+					|| op == Operation.ARCSINE || op == Operation.ARCCOSINE || op == Operation.ARCTANGENT) {
 				result = calculate(op, numbers.get(i), 0);
 				numbers.set(i, result);
 				operations.remove(i);
@@ -250,6 +342,18 @@ public class Calculator {
 			return Math.log(a);
 		else if (op == Operation.LOGARITHM10)
 			return Math.log10(a);
+		else if (op == Operation.SINE)
+			return Math.sin(a);
+		else if (op == Operation.ARCSINE)
+			return Math.asin(a);
+		else if (op == Operation.COSINE)
+			return Math.cos(a);
+		else if (op == Operation.ARCCOSINE)
+			return Math.acos(a);
+		else if (op == Operation.TANGENT)
+			return Math.tan(a);
+		else if (op == Operation.ARCTANGENT)
+			return Math.atan(a);
 		throw new IllegalArgumentException();
 	}
 }
@@ -261,5 +365,11 @@ enum Operation {
 	DIVISION,
 	EXPONENTIATION,
 	LOGARITHMN, //natural log
-	LOGARITHM10 //base 10 log
+	LOGARITHM10, //base 10 log
+	SINE, //trigonometry
+	COSINE,
+	TANGENT,
+	ARCSINE, //inverses
+	ARCCOSINE,
+	ARCTANGENT
 }
