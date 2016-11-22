@@ -6,3 +6,4 @@ v1.1: Order of execution, powers, negative numbers.
   v1.1u2: Pretty much nothing changed.  
 v1.2: Added constants 'e' and 'pi'.  
 v1.2.4: Added logarithm.  
+v1.2.5: Added trigonometry.
