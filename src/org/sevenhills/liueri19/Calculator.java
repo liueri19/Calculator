@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+ * bug cause found: ln(0.00001) -> ln1.0E-5
+ * ln(1.0) is taken first
+ */
+
 public class Calculator {
 	public static final String VERSION = "1.2";
 	
@@ -297,7 +302,7 @@ public class Calculator {
 		}
 		
 		//process exponentiation
-		for (int i = 0; i < operations.size(); i++) {
+ 		for (int i = 0; i < operations.size(); i++) {
 			Operation op = operations.get(i);
 			double result;
 			if (op == Operation.EXPONENTIATION) {
