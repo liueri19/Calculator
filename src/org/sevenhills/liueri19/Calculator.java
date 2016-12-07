@@ -104,6 +104,16 @@ public class Calculator {
 				}
 			}
 			////
+			else if (ch == 'E') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
+				number = Double.parseDouble(tempResultString);
+				tempResultString = "";
+				//aEb = a * 10^b;
+				numbers.add(number);
+				operations.add(Operation.MULTIPLICATION);
+				numbers.add(10d);
+				operations.add(Operation.EXPONENTIATION);
+			}
 			//parse functions
 			else if (tempResultString.indexOf("log") > -1) {
 				tempResultString = tempResultString.substring(0, tempResultString.length()-3); //delete the "log"
@@ -355,6 +365,14 @@ public class Calculator {
 		else if (op == Operation.ARCTANGENT)
 			return Math.atan(a);
 		throw new IllegalArgumentException();
+	}
+	
+	public static double parseDouble(String s) {
+		try {
+			return Double.parseDouble(s);
+		} catch (NumberFormatException e) {
+			return evaluate(s);
+		}
 	}
 }
 
