@@ -1,5 +1,6 @@
 package org.sevenhills.liueri19;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -60,7 +61,7 @@ public class Calculator {
 			else if (expression.charAt(i) == ')') {
 				parenthesis--;
 				if (parenthesis == 0) {	//if this is the end
-					subExpression = Double.toString(evaluate(subExpression));
+					subExpression = new BigDecimal(evaluate(subExpression)).toPlainString();
 					//expression = partBefore + evaluate(subExpression) + partAfter;
 					expression = expression.substring(0, subStart) 
 							+ subExpression 
