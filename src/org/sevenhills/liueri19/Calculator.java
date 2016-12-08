@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 
 public class Calculator {
-	public static final String VERSION = "1.2";
+	public static final String VERSION = "1.3.0";
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -110,16 +110,6 @@ public class Calculator {
 				}
 			}
 			////
-			else if (ch == 'E') {
-				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
-				number = Double.parseDouble(tempResultString);
-				tempResultString = "";
-				//aEb = a * 10^b;
-				numbers.add(number);
-				operations.add(Operation.MULTIPLICATION);
-				numbers.add(10d);
-				operations.add(Operation.EXPONENTIATION);
-			}
 			//parse functions
 			else if (tempResultString.indexOf("log") > -1) {
 				tempResultString = tempResultString.substring(0, tempResultString.length()-3); //delete the "log"
@@ -274,6 +264,13 @@ public class Calculator {
 				tempResultString = "";
 				numbers.add(number);
 				operations.add(Operation.DIVISION);
+			}
+			else if (ch == '%') {
+				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
+				number = Double.parseDouble(tempResultString);
+				numbers.add(number);
+				operations.add(Operation.DIVISION);
+				tempResultString = "100";
 			}
 			else if (ch == '^') {
 				tempResultString = tempResultString.substring(0, tempResultString.length()-1);
